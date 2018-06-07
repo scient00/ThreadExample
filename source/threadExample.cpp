@@ -54,9 +54,9 @@ int StartMultiThread(int threadNum) {
 #endif
 	MHANDLE* hThread = new MHANDLE[threadNum];
 	INITLOCK;
-	ThreadInputData* threadInput = new ThreadInputData[threadNum];
+	
 	for (int i = 0; i < threadNum; i++) {
-		
+		ThreadInputData* threadInput = new ThreadInputData();
 		threadInput->m_threadId = i;
 
 		//创建线程 
