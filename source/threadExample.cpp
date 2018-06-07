@@ -88,7 +88,6 @@ int StartMultiThread(int threadNum) {
 }
 
 int main(int argc,char** argv) {
-	for(int k=0;k<10;k++)
 	StartMultiThread(5);
 	return 0;
 }
