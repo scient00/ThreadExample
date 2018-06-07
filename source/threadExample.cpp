@@ -75,15 +75,20 @@ int StartMultiThread(int threadNum) {
 #ifdef _WIN32
 	WaitForMultipleObjects(threadNum, hThread, TRUE, INFINITE);
 #else
-	pthread_exit(NULL);
+	for (int i = 0; i < threadNum; i++) {
+		pthread_join(hThread[i], NULL);
+
+	}
+	//pthread_exit(NULL);//在此处直接退出
 #endif
 	UNINITLOCK;
+	delete[]threadInput;
 	delete []hThread;
 	return 0;
 }
 
 int main(int argc,char** argv) {
-
+	for(int k=0;k<10;k++)
 	StartMultiThread(5);
 	return 0;
 }
