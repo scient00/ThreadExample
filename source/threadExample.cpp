@@ -54,17 +54,17 @@ int StartMultiThread(int threadNum) {
 #endif
 	MHANDLE* hThread = new MHANDLE[threadNum];
 	INITLOCK;
-	
+	ThreadInputData* threadInput = new ThreadInputData[threadNum];
 	for (int i = 0; i < threadNum; i++) {
-		ThreadInputData* threadInput = new ThreadInputData();
-		threadInput->m_threadId = i;
+		
+		threadInput[i].m_threadId = i;
 
 		//创建线程 
 #ifdef _WIN32
-		hThread[i] = CreateThread(NULL, 0, ThreadProcess, (LPVOID)(threadInput), 0, &ThreadID);
+		hThread[i] = CreateThread(NULL, 0, ThreadProcess, (LPVOID)(&threadInput), 0, &ThreadID);
 		printf("Thread #%d has been created successfully.\n", i);
 #else
-		int pthreadResult = pthread_create(&hThread[i], NULL, ThreadProcess, (void*)threadInput);
+		int pthreadResult = pthread_create(&hThread[i], NULL, ThreadProcess, (void*)(&threadInput));
 		if (pthreadResult == 0) {
 			printf("Thread #%d has been created successfully.\n", i);
 		}
